@@ -44,7 +44,7 @@ func returnOrg(domain string, orgName string) string {
     }
     if parsed.Registrant.Organization == orgName {
         return fmt.Sprintf("[] %v\n", domain)
-    }else {
+    } else {
         return ""
     }
 }
@@ -74,7 +74,7 @@ BY: CANITEY `)
             return
         }
         defer f.Close()
-    }else {
+    } else {
         f = os.Stdin
         defer f.Close()
     }
