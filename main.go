@@ -23,21 +23,25 @@ func all(domain string) string {
     domain = strings.TrimSpace(domain)
     query, err := whois.Whois(domain)
     if err != nil {
-        print(err)
         return ""
     }
     parsed, err := whoisparser.Parse(query)
-    return fmt.Sprintf("%v\t\t%v",domain, parsed.Registrant.Organization) 
+    if err != nil {
+        return ""
+    }
+    return fmt.Sprintf("%v\t\t%v\n",domain, parsed.Registrant.Organization) 
 }
 
 func returnOrg(domain string, orgName string) string {
     domain = strings.TrimSpace(domain)
     query, err := whois.Whois(domain)
     if err != nil {
-        print(err)
         return ""
     }
     parsed, err := whoisparser.Parse(query)
+    if err != nil {
+        return ""
+    }
     if parsed.Registrant.Organization == orgName {
         return fmt.Sprintf("[] %v\n", domain)
     }else {
@@ -65,7 +69,10 @@ BY: CANITEY `)
     var f *os.File
     if opts.File != "" {
         f, err = os.Open(opts.File)
-        if err != nil { return }
+        if err != nil { 
+            fmt.Println(err.Error())
+            return
+        }
         defer f.Close()
     }else {
         f = os.Stdin
@@ -80,6 +87,7 @@ BY: CANITEY `)
     if opts.Out != "" {
         outFile, err = os.Create(opts.Out)
         if err != nil {
+            fmt.Println(err.Error())
             return
         }
         defer outFile.Close()
@@ -89,15 +97,15 @@ BY: CANITEY `)
     for scanner.Scan() {
         if opts.All {
             query := all(scanner.Text())
-            fmt.Println(query)
+            fmt.Print(query)
             if opts.Out != "" {
-                outFile.WriteString(query + "\n")
+                outFile.WriteString(query)
             }
         } else if opts.Org_name != "" {
             query := returnOrg(scanner.Text(), opts.Org_name)
             fmt.Print(query)
             if opts.Out != "" {
-                outFile.WriteString(query + "\n")
+                outFile.WriteString(query)
             }
         }
     }
