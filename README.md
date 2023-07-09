@@ -34,6 +34,7 @@ Help Options:
   -h, --help                   Show this help message
 ```
 **EXMAPLES**
+<<<<<<< HEAD
 
 `cat domains.txt | bulkwhois -a -o output.txt`
 
