@@ -1,4 +1,4 @@
-module github.com/mohamedmed01345/bulkwhois
+module github.com/canitey/bulkwhois
 
 go 1.20
 
