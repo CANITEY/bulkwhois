@@ -7,7 +7,7 @@ Is a script that you can feed a domains list and it will return the organization
 To install the binary in $GOPATH use this command:
 
 ```
-$ go install github.com/canitey/bulkwhois
+$ go install github.com/canitey/bulkwhois@1.2
 ```
 
 ## Usage
