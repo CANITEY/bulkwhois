@@ -40,7 +40,7 @@ func returnOrg(domain string, orgName string) string {
     parsed, err := whoisparser.Parse(query)
     if parsed.Registrant.Organization == orgName {
         return fmt.Sprintf("[] %v\n", domain)
-    }else {
+    } else {
         return ""
     }
 }
@@ -67,7 +67,7 @@ BY: CANITEY `)
         f, err = os.Open(opts.File)
         if err != nil { return }
         defer f.Close()
-    }else {
+    } else {
         f = os.Stdin
         defer f.Close()
     }
