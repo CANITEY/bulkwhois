@@ -7,7 +7,7 @@ Is a script that you can feed a domains list and it will return the organization
 To install the binary in $GOPATH use this command:
 
 ```
-$ go install github.com/canitey/gorg@1.2
+$ go install github.com/canitey/gorg@latest
 ```
 
 ## Usage
