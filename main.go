@@ -12,7 +12,7 @@ import (
 
 // these are the parameters
 var opts struct {
-	File     string `short:"f" long:"file" description:"specify file to \"whois\" it" value-name:"FILE"`
+	File     string `short:"f" long:"file" description:"specify file to \"gorg\" it" value-name:"FILE"`
 	Out      string `short:"o" long:"output" description:"specify file to save the output" value-name:"FILE"`
 	All      bool   `short:"a" long:"all" description:"when this flag is used the script return every query with Organization name associated with it"`
 	Org_name string `short:"r" long:"org-name" description:"specify Organization name to return domains that match it" value-name:"\"ORG NAME\""`
@@ -60,13 +60,12 @@ func main() {
 		}
 	}()
 	fmt.Println(`
-██████╗ ██╗   ██╗██╗     ██╗  ██╗██╗    ██╗██╗  ██╗ ██████╗ ██╗███████╗
-██╔══██╗██║   ██║██║     ██║ ██╔╝██║    ██║██║  ██║██╔═══██╗██║██╔════╝
-██████╔╝██║   ██║██║     █████╔╝ ██║ █╗ ██║███████║██║   ██║██║███████╗
-██╔══██╗██║   ██║██║     ██╔═██╗ ██║███╗██║██╔══██║██║   ██║██║╚════██║
-██████╔╝╚██████╔╝███████╗██║  ██╗╚███╔███╔╝██║  ██║╚██████╔╝██║███████║
-╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚══╝╚══╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝╚══════╝
-BY: CANITEY `)
+ ██████╗  ██████╗ ██████╗  ██████╗ 
+██╔════╝ ██╔═══██╗██╔══██╗██╔════╝ 
+██║  ███╗██║   ██║██████╔╝██║  ███╗
+██║   ██║██║   ██║██╔══██╗██║   ██║
+╚██████╔╝╚██████╔╝██║  ██║╚██████╔╝
+ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝ ╚═════╝      BY: CANITEY `)
 	// this part parses the arguments
 	_, err := flag.Parse(&opts)
 	if err != nil {

@@ -1,4 +1,4 @@
-# BULKWOIS
+# GORG
 Is a script that you can feed a domains list and it will return the organization name for every domain or filter domains for a specific organization name.
 
 
@@ -7,36 +7,35 @@ Is a script that you can feed a domains list and it will return the organization
 To install the binary in $GOPATH use this command:
 
 ```
-$ go install github.com/canitey/bulkwhois@1.2
+$ go install github.com/canitey/gorg@1.2
 ```
 
 ## Usage
 ```
-$ bulkwhois -h                                                                                                                                    
+$ gorg -h                                                                                                                                    
 
-██████╗ ██╗   ██╗██╗     ██╗  ██╗██╗    ██╗██╗  ██╗ ██████╗ ██╗███████╗
-██╔══██╗██║   ██║██║     ██║ ██╔╝██║    ██║██║  ██║██╔═══██╗██║██╔════╝
-██████╔╝██║   ██║██║     █████╔╝ ██║ █╗ ██║███████║██║   ██║██║███████╗
-██╔══██╗██║   ██║██║     ██╔═██╗ ██║███╗██║██╔══██║██║   ██║██║╚════██║
-██████╔╝╚██████╔╝███████╗██║  ██╗╚███╔███╔╝██║  ██║╚██████╔╝██║███████║
-╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚══╝╚══╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝╚══════╝
-BY: CANITEY 
+ ██████╗  ██████╗ ██████╗  ██████╗ 
+██╔════╝ ██╔═══██╗██╔══██╗██╔════╝ 
+██║  ███╗██║   ██║██████╔╝██║  ███╗
+██║   ██║██║   ██║██╔══██╗██║   ██║
+╚██████╔╝╚██████╔╝██║  ██║╚██████╔╝
+ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝ ╚═════╝      BY: CANITEY 
 Usage:
-  bulkwhois [OPTIONS]
+  main [OPTIONS]
 
 Application Options:
-  -f, --file=FILE              specify file to "whois" it
+  -f, --file=FILE              specify file to "gorg" it
   -o, --output=FILE            specify file to save the output
-  -a, --all                    when this flag is used, the script returns every query with the organization name associated with it
-  -r, --org-name="ORG NAME"    specify organization name to return domains that match it
+  -a, --all                    when this flag is used the script return every query with Organization name associated with it
+  -r, --org-name="ORG NAME"    specify Organization name to return domains that match it
 
 Help Options:
-  -h, --help                   show this help message
+  -h, --help                   Show this help message
 ```
 **EXAMPLES**
 
-`cat domains.txt | bulkwhois -a -o output.txt`
+`cat domains.txt | gorg -a -o output.txt`
 
-`cat damains.txt | bulkwhois -r "dummy org" -o output.txt`
+`cat damains.txt | gorg -r "dummy org" -o output.txt`
 
-`bulkwhois -f domains.txt -r "dummy org" -o output.txt`
+`gorg -f domains.txt -r "dummy org" -o output.txt`
