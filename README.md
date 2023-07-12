@@ -24,14 +24,15 @@ Usage:
   main [OPTIONS]
 
 Application Options:
-  -f, --file=FILE              specify file to "gorg" it
-  -o, --output=FILE            specify file to save the output
-  -a, --all                    when this flag is used the script return every query with Organization name associated with it
-  -r, --org-name="ORG NAME"    specify Organization name to return domains that match it
+  -f, --file=FILE                       specify file to "gorg" it
+  -o, --output=FILE                     specify file to save the output
+  -a, --all                             when this flag is used the script return every query with Organization name associated with it
+  -v, --version                         print the script version
+  -r, --org-name="ORG NAME"             specify Organization name to return domains that match it
+  -e, --org-email="example@mail.com"    specify Registrant name to return domains that match it
 
 Help Options:
-  -h, --help                   Show this help message
-```
+  -h, --help                            Show this help message```
 **EXAMPLES**
 
 `cat domains.txt | gorg -a -o output.txt`

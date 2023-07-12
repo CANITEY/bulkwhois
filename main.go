@@ -10,15 +10,18 @@ import (
 	"strings"
 )
 
+const VERSION = "v1.2"
+
 // these are the parameters
 var opts struct {
-	File     string `short:"f" long:"file" description:"specify file to \"gorg\" it" value-name:"FILE"`
-	Out      string `short:"o" long:"output" description:"specify file to save the output" value-name:"FILE"`
-	All      bool   `short:"a" long:"all" description:"when this flag is used the script return every query with Organization name associated with it"`
-	Org_name string `short:"r" long:"org-name" description:"specify Organization name to return domains that match it" value-name:"\"ORG NAME\""`
+	File      string `short:"f" long:"file" description:"specify file to \"gorg\" it" value-name:"FILE"`
+	Out       string `short:"o" long:"output" description:"specify file to save the output" value-name:"FILE"`
+	All       bool   `short:"a" long:"all" description:"when this flag is used the script return every query with Organization name associated with it"`
+	Version   bool   `short:"v" long:"version" description:"print the script version"`
+	Org_name  string `short:"r" long:"org-name" description:"specify Organization name to return domains that match it" value-name:"\"ORG NAME\""`
+	Org_email string `short:"e" long:"org-email" description:"specify Registrant name to return domains that match it" value-name:"\"example@mail.com\""`
 }
 
-// TODO: functions to return data
 func all(domain string) string {
 	domain = strings.TrimSpace(domain)
 	query, err := whois.Whois(domain)
@@ -32,7 +35,7 @@ func all(domain string) string {
 	return fmt.Sprintf("%v\t\t%v\n", domain, parsed.Registrant.Organization)
 }
 
-func returnOrg(domain string, orgName string) string {
+func returnOrgName(domain string, orgName string) string {
 	domain = strings.TrimSpace(domain)
 	query, err := whois.Whois(domain)
 	if err != nil {
@@ -48,6 +51,28 @@ func returnOrg(domain string, orgName string) string {
 	if parsed.Registrant.Organization == orgName {
 		return fmt.Sprintf("[] %v\n", domain)
 	} else if parsed.Registrant.Organization != orgName || parsed.Registrant == nil {
+		return ""
+	} else {
+		return ""
+	}
+}
+
+func returnOrgEmail(domain string, orgEmail string) string {
+	domain = strings.TrimSpace(domain)
+	query, err := whois.Whois(domain)
+	if err != nil {
+		return ""
+	}
+	parsed, err := whoisparser.Parse(query)
+	if err != nil {
+		return ""
+	}
+	if parsed.Registrant == nil {
+		return ""
+	}
+	if parsed.Registrant.Email == orgEmail {
+		return fmt.Sprintf("[] %v\n", domain)
+	} else if parsed.Registrant.Organization != orgEmail || parsed.Registrant == nil {
 		return ""
 	} else {
 		return ""
@@ -71,10 +96,14 @@ func main() {
 	if err != nil {
 		return
 	}
-	if !opts.All && opts.Org_name == "" {
+	if !opts.All && opts.Org_name == "" && !opts.Version {
 		fmt.Println("use -h/--h flag to print the help message")
 		return
 	}
+    if opts.Version {
+        fmt.Printf("Version is %v\n", VERSION)
+        return
+    }
 	// this part for file/stdin reading
 	var f *os.File
 	if opts.File != "" {
@@ -88,8 +117,8 @@ func main() {
 		f = os.Stdin
 		defer f.Close()
 	}
-	if opts.All && opts.Org_name != "" {
-		fmt.Println("ERROR: Arguments collision (you can't use -a/--all and -r/--org together)")
+	if opts.All && opts.Org_name != "" && opts.Org_email != "" {
+		fmt.Println("ERROR: Arguments collision")
 		return
 	}
 
@@ -112,12 +141,17 @@ func main() {
 				outFile.WriteString(query)
 			}
 		} else if opts.Org_name != "" {
-			query := returnOrg(scanner.Text(), opts.Org_name)
+			query := returnOrgName(scanner.Text(), opts.Org_name)
+			fmt.Print(query)
+			if opts.Out != "" {
+				outFile.WriteString(query)
+			}
+		} else if opts.Org_email != "" {
+			query := returnOrgEmail(scanner.Text(), opts.Org_email)
 			fmt.Print(query)
 			if opts.Out != "" {
 				outFile.WriteString(query)
 			}
 		}
 	}
-
 }
